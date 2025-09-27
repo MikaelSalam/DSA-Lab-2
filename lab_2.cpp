@@ -1,23 +1,24 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 struct User {
 
 	string username;
 	string password;
-	string role;
+	vector<string> permissions;
 	User* next;
 
-	User (cosnt string& u, const string& p, const string& r = "Viewer") {
+	User (const string& u, const string& p, const vector<string>& perms = {"view"}) {
 		username = u;
 		password = p;
-		role = r;
+		permissions = perms;
 		next = nullptr;
 	}
 };
 
-bool insertUser(User*& head, const string& username, const string& password, const string& role = "Viewer") {
+bool insertUser(User*& head, const string& username, const string& password, const vector<string>& perms = {"view"}) {
     //Worst Case Runtime: O(n)//
     
     //Runtime: O(n)//
@@ -30,7 +31,7 @@ bool insertUser(User*& head, const string& username, const string& password, con
 	}
 
 
-	User* newUser = new User(username, password, role);
+	User* newUser = new User(username, password, perms);
 	if(head == nullptr) {
 		head = newUser;
 		return true;
@@ -126,10 +127,10 @@ void clearList(User*& head) {
     head = nullptr;
 }
 
-bool authroize(User* head , const string& username , const string& action = "viewer"){
+bool authorize(User* head , const string& username , const string& action = "viewer"){
     //Runtime : O(n) //
-    User* user = findUser (head , username)
-    if(!user){
+    User* user = findUser (head , username);
+    if(user == nullptr){
 		return false;
 	}
     

@@ -126,15 +126,42 @@ void clearList(User*& head) {
     head = nullptr;
 }
 
+bool authroize(User* head , const string& username , const string& action = "viewer"){
+    //Runtime : O(n) //
+    User* user = findUser (head , username)
+    if(!user){
+		return false;
+	}
+    
+	if(user->role == "admin"){
+		return true;
+	}
+	else if(user->role == "editor"){
+		return (action == "view"|| action == "edit"|| action == "create");
+	}
+	else if(user->role == "viewer"){
+		return (action == "view");
+	}
+	return false;
+}
+
+
 int main() {
 
     User* head = nullptr;
 		
-	insertUser(head,"Jake","51015");
-	insertUser(head,"Sam","@2025");
-	insertUser(head,"Kile","12345");
-	insertUser(head,"Andy","@nDy1");
-	insertUser(head,"Olivia","01ivi@");
+	insertUser(head,"Jake","51015","admin");
+	insertUser(head,"Sam","@2025","editor");
+	insertUser(head,"Kile","12345","viewer");
+	insertUser(head,"Andy","@nDy1","editor");
+	insertUser(head,"Olivia","01ivi@","viewer");
+    
+    cout << "Jake (admin, delete): " << authorize(head, "Jake", "delete") << endl;
+    cout << "Sam (editor, edit): " << authorize(head, "Sam", "edit") << endl;
+    cout << "Kile (viewer, edit): " << authorize(head, "Kile", "edit") << endl;
+    cout << "Andy (editor, view): " << authorize(head, "Andy", "view") << endl;
+    cout << "Olivia (viewer, view): " << authorize(head, "Olivia", "view") << endl;
+     
 
     cout<<"Finding User.\n";
 		User* user = findUser(head,"Sam");

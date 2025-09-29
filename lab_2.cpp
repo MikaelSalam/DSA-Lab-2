@@ -152,14 +152,14 @@ bool authorize(User* head, const string& username , const string& action){
 		insertUser(head,"Jake","51015",{"view" , "admin" , "delete"});
 		insertUser(head,"Sam","@2025",{"view" , "editor" , "create"});
 		insertUser(head,"Kile","12345",{"view" , "viewer" , "edit"});
-		insertUser(head,"Andy","@nDy1",{"view" , "editor", "view"});
-		insertUser(head,"Olivia","01ivi@",{"view"});
+		insertUser(head,"Andvia","01ivi@",{"view"});
+		insertUser(head,"Oliy","@nDy1",{"view" , "editor", "view"});
 		
-         cout << "Jake delete -> " << authorize(head, "Jake", "delete") << endl;  // 1
-         cout << "Sam create -> " << authorize(head, "Sam", "create") << endl;    // 1
-         cout << "Sam delete -> " << authorize(head, "Sam", "delete") << endl;    // 0
-         cout << "Olivia view -> " << authorize(head, "Olivia", "view") << endl;  // 1
-        cout << "Olivia edit -> " << authorize(head, "Olivia", "edit") << endl;  // 0
+         cout << "Jake delete -> " << (authorize(head, "Jake", "delete")? "Allowed" : "Denied") << endl;  
+         cout << "Sam create -> " << (authorize(head, "Sam", "create")? "Allowed" : "Denied") << endl;   
+         cout << "Sam delete -> " << (authorize(head, "Sam", "delete")? "Allowed" : "Denied" )<< endl;    
+         cout << "Olivia view -> " << (authorize(head, "Olivia", "view")? "Allowed" : "Denied" )<< endl; 
+        cout << "Olivia edit -> " << (authorize(head, "Olivia", "edit")? "Allowed ": "Denied" )<< endl;  
         
 	 	cout<<"Finding User.\n";
 		User* user = findUser(head,"Sam");
